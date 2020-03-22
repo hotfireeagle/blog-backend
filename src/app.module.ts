@@ -1,7 +1,9 @@
 import { Module } from '@nestjs/common'
+import { APP_PIPE } from '@nestjs/core'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { entities } from './app.entity'
 import { UserModule } from './module/user/user.module'
+import { ValidationPipe } from './pipe/validation.pipe'
 
 @Module({
   imports: [
@@ -18,6 +20,11 @@ import { UserModule } from './module/user/user.module'
     UserModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_PIPE,
+      useClass: ValidationPipe
+    }
+  ],
 })
 export class AppModule {}
