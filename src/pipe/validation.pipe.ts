@@ -43,7 +43,7 @@ export class ValidationPipe implements PipeTransform<any> {
     const errors = await validate(object)
     if (errors.length > 0) {
       const message = this.errorStringify(errors)
-      throw new HttpException({ status: ErrorStatus, message }, HttpStatus.BAD_REQUEST)
+      throw new HttpException({ status: ErrorStatus, message }, HttpStatus.OK)
     }
     return value
   }

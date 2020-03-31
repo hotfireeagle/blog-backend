@@ -27,11 +27,11 @@ export class UserService {
     if (userObj) {
       if (userObj.password === user.password) {
         const token = this.jwtService.sign({ name: userObj.name, sub: userObj.id })
-        return { status: SuccessStatus, message: '登录成功', token }
+        return { status: SuccessStatus, message: '登录成功', data: token }
       }
-      return { status: ErrorStatus, message: '密码错误', token: null }
+      return { status: ErrorStatus, message: '密码错误', data: null }
     } else {
-      return { status: ErrorStatus, message: '不存在该用户', token: null }
+      return { status: ErrorStatus, message: '不存在该用户', data: null }
     }
   }
 }
