@@ -2,8 +2,9 @@ import { Module } from '@nestjs/common'
 import { APP_PIPE } from '@nestjs/core'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { entities } from './app.entity'
-import { UserModule } from './module/user/user.module'
 import { ValidationPipe } from './pipe/validation.pipe'
+import { UserModule } from './module/user/user.module'
+import { TagModule } from './module/tag/tag.module'
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ValidationPipe } from './pipe/validation.pipe'
       synchronize: true,
     }),
     UserModule,
+    TagModule,
   ],
   controllers: [],
   providers: [
