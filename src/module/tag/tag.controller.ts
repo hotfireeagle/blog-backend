@@ -1,4 +1,4 @@
-import { Controller, Post, Body, HttpCode } from '@nestjs/common'
+import { Controller, Post, Body, HttpCode, Get } from '@nestjs/common'
 import { TagService } from './tag.service'
 import { CreateTagDto } from './tag.dto'
 
@@ -11,4 +11,10 @@ export class TagController {
   async create(@Body() tagObj: CreateTagDto) {
     return await this.tagService.newTagService(tagObj)
   }
+
+  @Get('/all')
+  getAll() {
+    return this.tagService.findAllTags()
+  }
+
 }

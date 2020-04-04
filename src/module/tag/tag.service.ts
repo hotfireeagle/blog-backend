@@ -33,4 +33,10 @@ export class TagService {
       return { status: ErrorStatus, message: '该标签已存在', data: null }
     }
   }
+
+  /** 返回所有标签数据 */
+  async findAllTags() {
+    const data = await this.tagRepo.find()
+    return { status: SuccessStatus, message: 'ok', data }
+  }
 }

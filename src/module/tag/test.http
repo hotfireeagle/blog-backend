@@ -1,6 +1,32 @@
+# 测试成功创建标签的接口
 POST http://127.0.0.1:3000/api/tag/new HTTP/1.1
 Content-Type: application/json
 
 {
   "name": "前端谱"
 }
+
+###
+
+# 测试当name不存在的时候返回信息应该提示信息不存在
+POST http://127.0.0.1:3000/api/tag/new HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": ""
+}
+
+###
+
+# 测试name超过10位的时候应该提示太长了
+POST http://127.0.0.1:3000/api/tag/new HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "12345678901"
+}
+
+###
+
+# 测试获取所有标签的接口
+GET http://127.0.0.1:3000/api/tag/all HTTP/1.1
