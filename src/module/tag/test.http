@@ -30,3 +30,4 @@ Content-Type: application/json
 
 # 测试获取所有标签的接口
 GET http://127.0.0.1:3000/api/tag/all HTTP/1.1
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiaGFoYWhhaSIsInN1YiI6MSwiaWF0IjoxNTg1OTgyNDA4LCJleHAiOjE1ODU5ODI0Mzh9.DCeQJey75xZiHjKlKgb-kVDMfA9jAJnMJamdgdVVHf0

@@ -1,8 +1,10 @@
-import { Controller, Post, Body, HttpCode, Get } from '@nestjs/common'
+import { Controller, Post, Body, HttpCode, Get, UseGuards } from '@nestjs/common'
 import { TagService } from './tag.service'
 import { CreateTagDto } from './tag.dto'
+import { JwtAuthGuard } from '../../guard/auth.guard'
 
 @Controller('tag')
+@UseGuards(JwtAuthGuard)
 export class TagController {
   constructor(private readonly tagService: TagService) {}
 
