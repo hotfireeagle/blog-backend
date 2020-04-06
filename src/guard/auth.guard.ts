@@ -1,7 +1,7 @@
 
 import { Injectable, HttpException, ExecutionContext } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
-import { ErrorStatus } from '../constant/response'
+import { UnauthStatus } from '../constant/response'
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
@@ -18,7 +18,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
    */
   handleRequest(err, user) {
     if (err || !user) {
-      throw new HttpException({　status: ErrorStatus,　message: '未登录'　}, 200)
+      throw new HttpException({　status: UnauthStatus,　message: '未登录'　}, 200)
     }
     return user
   }
