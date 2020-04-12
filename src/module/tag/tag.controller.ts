@@ -1,4 +1,4 @@
-import { Controller, Post, Body, HttpCode, Get, UseGuards } from '@nestjs/common'
+import { Controller, Post, Body, HttpCode, Get, UseGuards, Delete, Query } from '@nestjs/common'
 import { TagService } from './tag.service'
 import { CreateTagDto } from './tag.dto'
 import { JwtAuthGuard } from '../../guard/auth.guard'
@@ -19,4 +19,8 @@ export class TagController {
     return this.tagService.findAllTags()
   }
 
+  @Delete('/:tagId')
+  deleteTag(@Query('tagId') tagId: string) {
+    return this.tagService.deleteTagService(tagId)
+  }
 }

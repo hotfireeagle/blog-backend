@@ -39,4 +39,9 @@ export class TagService {
     const data = await this.tagRepo.find()
     return { status: SuccessStatus, message: 'ok', data }
   }
+
+  /** 删除标签 */
+  async deleteTagService(tagId) {
+    return await this.tagRepo.delete({ id: tagId })
+  }
 }
