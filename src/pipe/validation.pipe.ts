@@ -36,7 +36,6 @@ export class ValidationPipe implements PipeTransform<any> {
   async transform(value: any, metadata: ArgumentMetadata) {
     const metaType = metadata.metatype
     if (!metaType || this.pass(metaType)) { // 无需校验的话，那么这个值原封不动的继续传给controller
-      console.log('wdn')
       return value
     }
     const object = plainToClass(metaType, value)

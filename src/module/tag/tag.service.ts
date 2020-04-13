@@ -42,6 +42,7 @@ export class TagService {
 
   /** 删除标签 */
   async deleteTagService(tagId) {
-    return await this.tagRepo.delete({ id: tagId })
+    await this.tagRepo.delete(tagId)
+    return { status: SuccessStatus, message: '删除成功' }
   }
 }
