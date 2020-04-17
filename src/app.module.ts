@@ -5,6 +5,7 @@ import { entities } from './app.entity'
 import { ValidationPipe } from './pipe/validation.pipe'
 import { UserModule } from './module/user/user.module'
 import { TagModule } from './module/tag/tag.module'
+import { ArticleModule } from './module/article/article.module'
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { TagModule } from './module/tag/tag.module'
     }),
     UserModule,
     TagModule,
+    ArticleModule,
   ],
   controllers: [],
   providers: [
