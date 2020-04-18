@@ -10,6 +10,5 @@ export class CreateArticleDto {
   content: string // 文章内容
 
   @IsNotEmpty({ message: '标签不能为空' })
-  @MinLength(1, { message: '文章必须拥有至少一个标签' })
   tags: Array<number> // 标签ID
 }

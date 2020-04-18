@@ -13,4 +13,10 @@ export class ArticleController {
   async create(@Body() articleObj: CreateArticleDto) {
     return await this.articleService.newArticleService(articleObj)
   }
+
+  @Post('/query')
+  @HttpCode(200)
+  async query(@Body() queryObj) {
+    return await this.articleService.fetchArticleService(queryObj)
+  }
 }

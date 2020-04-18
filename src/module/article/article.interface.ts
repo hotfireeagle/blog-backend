@@ -13,3 +13,9 @@ export interface ArticleInstance {
   content: string
   tags: Array<TagId>
 }
+
+export interface IQuery {
+  page?: number
+  pageSize?: number
+  tagId?: number
+}
