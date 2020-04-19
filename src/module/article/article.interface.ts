@@ -12,6 +12,7 @@ export interface ArticleInstance {
   title: string
   content: string
   tags: Array<TagId>
+  date: string
 }
 
 export interface IQuery {

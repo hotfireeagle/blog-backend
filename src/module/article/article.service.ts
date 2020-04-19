@@ -4,6 +4,7 @@ import { Repository } from 'typeorm'
 import { Article } from './article.entity'
 import { ICreateArticle, ArticleInstance, IQuery } from './article.interface'
 import { SuccessStatus, ErrorStatus } from '../../constant/response'
+import { dateStr } from '../../util/index'
 
 @Injectable()
 export class ArticleService {
@@ -17,9 +18,11 @@ export class ArticleService {
    * @param articleObj : 文章数据
    */
   async newArticleService(articleObj: ICreateArticle) {
+    const date = dateStr()
     const articleInstance: ArticleInstance = {
       ...articleObj,
-      tags: articleObj.tags.map(tagId => ({ id: tagId }))
+      tags: articleObj.tags.map(tagId => ({ id: tagId })),
+      date,
     }
     try {
       const result = await this.articleRepo.save(articleInstance)
@@ -43,7 +46,7 @@ export class ArticleService {
       return this.fetchArticleWithTag(skip, queryObj.pageSize, queryObj.tagId)
     }
     const [result, count] = await this.articleRepo.findAndCount({
-      select: ['id', 'title'],
+      select: ['id', 'title', 'date'],
       relations: ['tags'],
       skip,
       take: queryObj.pageSize
@@ -55,7 +58,7 @@ export class ArticleService {
   private async fetchArticleWithTag(skip, pagesize, tag) {
     const [result, count] = await this.articleRepo.createQueryBuilder('article')
       .leftJoin('article.tags', 'tag')
-      .select(['article.id', 'article.title', 'tag.id', 'tag.name'])
+      .select(['article.id', 'article.title', 'article.date', 'tag.id', 'tag.name'])
       .where('tag.id = :tagId', { tagId: tag })
       .skip(skip)
       .take(pagesize)

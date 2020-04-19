@@ -12,6 +12,9 @@ export class Article {
   @Column()
   content: string
 
+  @Column()
+  date: string
+
   @ManyToMany(type => Tag)
   @JoinTable()
   tags: Tag[]
