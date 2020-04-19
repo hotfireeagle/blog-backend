@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository, FindManyOptions } from 'typeorm'
+import { Repository } from 'typeorm'
 import { Article } from './article.entity'
 import { ICreateArticle, ArticleInstance, IQuery } from './article.interface'
 import { SuccessStatus, ErrorStatus } from '../../constant/response'
@@ -36,16 +36,41 @@ export class ArticleService {
   async fetchArticleService(queryObj: IQuery) {
     !queryObj.page && (queryObj.page = 0)
     !queryObj.pageSize && (queryObj.pageSize = 10)
+    
+    const skip = queryObj.page * queryObj.pageSize
 
+    if (queryObj.tagId) {
+      return this.fetchArticleWithTag(skip, queryObj.pageSize, queryObj.tagId)
+    }
+    const [result, count] = await this.articleRepo.findAndCount({
+      select: ['id', 'title'],
+      relations: ['tags'],
+      skip,
+      take: queryObj.pageSize
+    })
+    return { status: SuccessStatus, data: { result, total: count }, message: '' }
+  }
+
+  /** 携带了指定的标签的话 */
+  private async fetchArticleWithTag(skip, pagesize, tag) {
     const [result, count] = await this.articleRepo.createQueryBuilder('article')
       .leftJoin('article.tags', 'tag')
       .select(['article.id', 'article.title', 'tag.id', 'tag.name'])
-      .where('tag.id = :tagId', { tagId: queryObj.tagId })
-      .skip(queryObj.page * queryObj.pageSize)
-      .take(queryObj.pageSize)
+      .where('tag.id = :tagId', { tagId: tag })
+      .skip(skip)
+      .take(pagesize)
       .getManyAndCount()
 
     return { status: SuccessStatus, data: { result, total: count }, message: '' }
   }
 
+  /** 获取文章的详情数据 */
+  async fetchArticleDetail(articleId: number) {
+    const option = {
+      where: { id: articleId },
+      relations: ['tags']
+    }
+    const result = await this.articleRepo.findOne(option)
+    return { status: SuccessStatus, data: result, message: '' }
+  }
 }

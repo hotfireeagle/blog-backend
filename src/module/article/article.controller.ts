@@ -1,4 +1,4 @@
-import { Controller, Post, Body, HttpCode, UseGuards } from '@nestjs/common'
+import { Controller, Post, Body, HttpCode, UseGuards, Get, Param } from '@nestjs/common'
 import { ArticleService } from './article.service'
 import { CreateArticleDto } from './article.dto'
 import { JwtAuthGuard } from '../../guard/auth.guard'
@@ -18,5 +18,10 @@ export class ArticleController {
   @HttpCode(200)
   async query(@Body() queryObj) {
     return await this.articleService.fetchArticleService(queryObj)
+  }
+
+  @Get('/:articleId')
+  async getDetail(@Param('articleId') id) {
+    return await this.articleService.fetchArticleDetail(id)
   }
 }
