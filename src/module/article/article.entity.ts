@@ -9,7 +9,7 @@ export class Article {
   @Column()
   title: string
 
-  @Column()
+  @Column('text')
   content: string
 
   @Column()
