@@ -10,4 +10,10 @@ export class User {
 
   @Column()
   password: string
+
+  @Column()
+  token: string // 用户的token数据
+
+  @Column()
+  tokenBornDate: Date // token产生的时间
 }
