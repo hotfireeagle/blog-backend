@@ -1,4 +1,4 @@
-import { Controller, Post, Body, HttpCode } from '@nestjs/common'
+import { Controller, Post, Body, HttpCode, Get, Param } from '@nestjs/common'
 import { SHA256 } from 'crypto-js'
 import { UserService } from './user.service'
 import { UserLoginDto } from './user.dto'
@@ -12,5 +12,10 @@ export class UserController {
   async login(@Body() userLoginDto: UserLoginDto) {
     userLoginDto.password = SHA256(userLoginDto.password).toString()
     return await this.userService.userLoginService(userLoginDto)
+  }
+
+  @Get('/isTokenValid/:token')
+  async isTokenValid(@Param('token') token) {
+    return await this.userService.checkTokenValidService(token)
   }
 }

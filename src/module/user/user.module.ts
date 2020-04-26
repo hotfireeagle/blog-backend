@@ -6,11 +6,12 @@ import { JwtStrategy } from './auth.strategy'
 import { UserService } from './user.service'
 import { UserController } from './user.controller'
 import { User } from './user.entity'
+import { TOKEN_LIFE } from '../../constant/system'
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),
-    JwtModule.register({ secret: JWT_SECRET, signOptions: { expiresIn: '30S' } })
+    JwtModule.register({ secret: JWT_SECRET, signOptions: { expiresIn: TOKEN_LIFE } })
   ],
   providers: [UserService, JwtStrategy],
   controllers: [UserController],
