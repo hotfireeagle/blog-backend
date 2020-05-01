@@ -57,11 +57,11 @@ export class UserService {
       const tokenBornDate = userObj.tokenBornDate
       const now = new Date()
       if (now.valueOf() - tokenBornDate.valueOf() > TOKEN_LIFE * 1000) {
-        return { status: ErrorStatus, message: 'token已经过期', data: null }
+        return { status: SuccessStatus, message: 'token已经过期', data: { status: ErrorStatus } }
       }
-      return { status: SuccessStatus, message: 'ok', data: null }
+      return { status: SuccessStatus, message: 'ok', data: { status: SuccessStatus } }
     } else {
-      return { status: ErrorStatus, message: '不存在此token', data: null }
+      return { status: SuccessStatus, message: '不存在此token', data: { status: ErrorStatus } }
     }
   }
 }
